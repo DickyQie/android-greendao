@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+    defaultConfig {
+        applicationId "com.zhangqie.greendao"
+        minSdkVersion 19
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:22.2.+'
+    compile 'org.greenrobot:greendao:3.+'
+    testCompile 'junit:junit:4.12'
+}
+
+greendao {
+    schemaVersion 2//指定数据库schema版本号，迁移等操作会用到;
+    daoPackage 'com.zhangqie.greendao.gen'//自动生成的dao的包名，包名默认是entity所在的包；
+    targetGenDir 'src/main/java'//生成数据库文件的目录
+    //generateTests：  设置为true以自动生成单元测试。
+    //targetGenDirTests： 应存储生成的单元测试的基本目录。默认为 src / androidTest / java。
+}
